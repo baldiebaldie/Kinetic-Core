@@ -4,11 +4,14 @@
 
 const player = document.getElementById('player');
 const spike = document.getElementById('spike');
+const cannons = [
 
+];
 
 let topPosition = 50;
 let leftPosition = 50;
 var speed = 1;
+var cannonAmount = 11;
 
 
 //list which keeps track of current buttons pressed
@@ -21,6 +24,21 @@ window.addEventListener('keydown', event => {
 window.addEventListener('keyup', event => {
     keyPressed[event.key.toLowerCase()] = false;
 })
+
+function spawnCannons(sidebarId, count, isFlipped){
+    
+    const cannonArea = document.getElementById(sidebarId);
+    
+    for(var i = 0; i<count; i++){
+        const cannon = document.createElement('div');
+            cannon.classList.add('cannon');
+        
+            if(isFlipped) {
+                cannon.classList.add('cannonFlipped')
+            }
+            cannonArea.appendChild(cannon);
+    }
+}
 
 //function which updates each frame
 function update() {
@@ -68,3 +86,7 @@ function checkCollision (obj1, obj2){
 }
 
 update();
+spawnCannons('cannonSidebarLeft', cannonAmount, false);
+spawnCannons('cannonSidebarRight', cannonAmount, true);
+spawnCannons('cannonSidebarTop', cannonAmount, true);
+spawnCannons('cannonSidebarBottom', cannonAmount, true);

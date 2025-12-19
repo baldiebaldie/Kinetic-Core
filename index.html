@@ -7,10 +7,18 @@
     <title>Bullet hell minigame</title>
   </head>
   <body>
-    <h1>Dodge the Bullets</h1>
-    <div class="playableArea">
-      <div id="player" class="player"></div>
-      <div id="spike" class="spike"></div>
+    <h1 id="titleText">Dodge the Bullets</h1>
+    <div id="cannonRing">
+      <div id="cannonSidebarTop" class="sidebar horizontalSidebar"></div>
+      <div id="cannonSidebarBottom" class="sidebar horizontalSidebar"></div>
+      <div id="cannonSidebarLeft" class="sidebar verticalSidebar"></div>
+      <div id="cannonSidebarRight" class="sidebar verticalSidebar"></div>
+
+      <div class="playableArea">
+        <div id="player" class="player"></div>
+        <div id="spike" class="spike"></div>
+        <div id="bullet" class="bullet"></div>
+      </div>
     </div>
   </body>
   <script src="/script.js"></script>
