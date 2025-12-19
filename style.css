@@ -61,17 +61,20 @@ body{
     /* border stuff*/
     border: 5px solid rgb(152, 152, 152);
     border-radius: 25px;
+    overflow: hidden;
 }
 
 
 
 .player{
 
-    height: 30px;
-    width: 30px;
-    background-color: black;
+    height: 50px;
+    width: 50px;
 
-    border-radius: 50px;
+    background-image: url("/assets/Th20Marisa.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+
     position: absolute;
 
 }
@@ -117,10 +120,4 @@ body{
 
     position: relative;
 
-}
-
-.titleText{
-    background-color: blue;
-    margin-left: auto;
-    margin-right: auto;
 }

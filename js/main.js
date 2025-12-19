@@ -1,47 +1,38 @@
-/**
- * @type 
- */
+// main.js
+import { keyPressed } from './input.js';
+import { spawnCannons, checkCollision, fireCannon } from './cannonLogic.js';
 
 const player = document.getElementById('player');
-const spike = document.getElementById('spike');
 const playableArea = document.querySelector('.playableArea');
+
+
+//variables
+let topPosition = 50;
+let leftPosition = 50;
+var speed = 3;
+var cannonAmount = 11;
+let activeBullets = [];
+
 
 //calculate player bounds
 const maxX = playableArea.clientWidth - player.offsetWidth;
 const maxY = playableArea.clientHeight - player.offsetHeight;
 
+//initialize cannons
+spawnCannons('cannonSidebarLeft', cannonAmount, false);
+spawnCannons('cannonSidebarRight', cannonAmount, true);
+spawnCannons('cannonSidebarTop', cannonAmount, true);
+spawnCannons('cannonSidebarBottom', cannonAmount, true);
 
 
-let topPosition = 50;
-let leftPosition = 50;
-var speed = 3;
-var cannonAmount = 11;
 
-//list which keeps track of current buttons pressed
-const keyPressed = {};
-//if button is pressed down, add to pressed list
-window.addEventListener('keydown', event => {
-    keyPressed[event.key.toLowerCase()] = true;
-})
-//if button is released, remove from pressed list
-window.addEventListener('keyup', event => {
-    keyPressed[event.key.toLowerCase()] = false;
-})
-
-function spawnCannons(sidebarId, count, isFlipped){
-    
-    const cannonArea = document.getElementById(sidebarId);
-    
-    for(var i = 0; i<count; i++){
-        const cannon = document.createElement('div');
-            cannon.classList.add('cannon');
-        
-            if(isFlipped) {
-                cannon.classList.add('cannonFlipped')
-            }
-            cannonArea.appendChild(cannon);
-    }
+//testing shooting
+for(let i = 0; i<cannonAmount; i++) {
+    var tmp = 50;
+    tmp+=50;
+    fireCannon(i * 65 + 30, playableArea, activeBullets);
 }
+
 
 //function which updates each frame
 function update() {
@@ -77,6 +68,22 @@ function update() {
     }
 
 
+    //bullet logic
+    for (let i = activeBullets.length - 1; i>=0; i--) {
+        let b = activeBullets[i];
+
+        //moveBullet
+        b.x += b.speed;
+        b.element.style.left = `${b.x}px`;
+        b.element.style.top = `${b.y}px`;
+
+        //despawn logic
+        if (b.x > playableArea.clientWidth) {
+            b.element.remove();
+            activeBullets.splice(i, 1);
+        }
+    }
+
     //udpate the actual div element
     player.style.top = `${topPosition}px`;
     player.style.left = `${leftPosition}px`;
@@ -85,7 +92,6 @@ function update() {
     //check player collision logic
     // const currentSpikeLocation = spike.getBoundingClientRect();
     // const currentplayerLocation = player.getBoundingClientRect();
-    console.log(player.position);
 
     // if (checkCollision(currentSpikeLocation, currentplayerLocation)) {
     //     console.log("hit");
@@ -97,17 +103,7 @@ function update() {
     
 }
 
-function checkCollision (obj1, obj2){
-    return (
-        obj1.left < obj2.right && 
-        obj1.right > obj2.left &&
-        obj1.top < obj2.bottom &&
-        obj1.bottom > obj2.top
-    );
-}
 
 update();
-spawnCannons('cannonSidebarLeft', cannonAmount, false);
-spawnCannons('cannonSidebarRight', cannonAmount, true);
-spawnCannons('cannonSidebarTop', cannonAmount, true);
-spawnCannons('cannonSidebarBottom', cannonAmount, true);
+
+
