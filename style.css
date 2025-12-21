@@ -18,7 +18,7 @@ body{
 
     /* border stuff*/
     border-radius: 25px;
-    padding: 25px;
+    padding: 50px;
 }
 
 /* cannon sidebar stuff */
@@ -102,11 +102,13 @@ body{
 }
 
 .cannon {
-    
-    height: 50px;
-    width: 50px;
-    background-image: url(/assets/image-removebg-preview.png);
-    background-size: cover;
+
+    height: 75px;
+    width: 75px;
+    background-image: url(/assets/cannon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 
     position: relative;
 
@@ -114,10 +116,12 @@ body{
 
 .cannonFlipped {
     transform: scalex(-1);
-    height: 50px;
-    width: 50px;
-    background-image: url(/assets/image-removebg-preview.png);
-    background-size: cover;
+    height: 75px;
+    width: 75px;
+    background-image: url(/assets/cannon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 
     position: relative;
 

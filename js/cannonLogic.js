@@ -1,61 +1,67 @@
-export function spawnCannons(sidebarId, count, isFlipped){
-    
-    const cannonArea = document.getElementById(sidebarId);
-    
-    for(let i = 0; i<count; i++){
-        const cannon = document.createElement('div');
-            cannon.classList.add('cannon');
+var startingSpeed = 1;
+var startingSize = 1;
+var allCannons = [];
+
+class cannon {
+    constructor (side, index) {
+        this.side = side;
+        this.index = index;
+        this.element = document.createElement('div');
+        if(side == 'right' || side == 'bottom') {
+            this.isFlipped = true;
+        }
+        this.isFlipped = false;
         
-            if(isFlipped) {
-                cannon.classList.add('cannonFlipped')
-            }
-            // /*this switch case is meant to give each cannon a unique id
-            // which is later used for shooting patters. 
-            // */
-            switch(sidebarId){
-                case ('cannonSidebarLeft'):
-                    cannon.dataset.index = i;
-                    cannon.dataset.position = 
-                    break;
-                case ('cannonSidebarRight'):
-                    cannon.dataset.index = (i+count);
-                    break;
-                case ('cannonSidebarTop'):
-                    cannon.dataset.index = (i+(2*count));
-                    break;
-                case ('cannonSidebarBottom'):
-                    cannon.dataset.index = (i+(3*count));
-                    break;
+    }
 
-            }
-            cannonArea.appendChild(cannon);
+    fire(playableArea) {
+        myBullet = new bullet(startingSize, startingSpeed);
+        myBullet.classList.add('bullet');
+        playableArea.appendChild(myBullet);
+        myBullet.element.style.position = 'absolute';
+        activeBullets.push(myBullet);
+    }
+
+}
+
+class bullet {
+    constructor (speed, size) {
+        this.speed = speed;
+        this.size = size;
+        this.element = document.createElement('div');
     }
 }
 
-
-export function pattern_staircase() {
-    for(let i = 0; i<count ; i++) {
+export function spawnCannons(count, size, sidebarId) {
+    for(let i = 0; i<count; i ++) {
+        let c = new cannon(sidebarId, i)
+        switch (sidebarId) {
+            case ('cannonSidebarLeft'):
+                c.index = i;
+                break;
+            case ('cannonSidebarRight'):
+                c.index = (i+count);
+                break;
+            case ('cannonSidebarTop'):
+                c.index = (i+(2*count));
+                break;
+            case ('cannonSidebarBottom'):
+                c.index = (i+(3*count));
+                break;
+        }
+        let sidebar = document.getElementById(sidebarId);
+        sidebar.appendChild(c.element);
+        allCannons.push(c);
+        if(sidebarId == 'cannonSidebarRight') {
+            c.element.classList.add('cannonFlipped');
+        }
+        else {
+            c.element.classList.add('cannon');
+        }
 
     }
 }
 
-export function fireCannon(xPosition, yPosition, playableArea, activeBullets) {
-    const bullet = document.createElement('div');
-    bullet.classList.add('bullet');
-    
-    playableArea.appendChild(bullet);
-    bullet.style.position = 'absolute'; //ensures it can move
-
-    const bulletData = {
-        element: bullet,
-        x: xPosition,
-        y: yPosition,
-        speed: 2
-    }
-    
-    activeBullets.push(bulletData);
-    
-}
 
 export function checkCollision (obj1, obj2){
     return (

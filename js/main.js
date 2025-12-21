@@ -1,6 +1,6 @@
 // main.js
 import { keyPressed } from './input.js';
-// import { spawnCannons, checkCollision, fireCannon } from './cannonLogic.js';
+import { spawnCannons, checkCollision } from './cannonLogic.js';
 
 const playableArea = document.querySelector('.playableArea');
 
@@ -9,11 +9,12 @@ let yStartingPosition = playableArea.clientWidth/2;
 let xStartingPosition = playableArea.clientHeight/2;
 var startingSpeed = 3;
 var cannonAmount = 11;
+var cannonSize = 1;
 let activeBullets = [];
 
 class player {
 
-    constructor(x, y, speed, element, playableArea) {
+    constructor(x, y, speed, playableArea) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -22,8 +23,9 @@ class player {
     }
 
      calculateBounds() {
-        this.yConstraint = playableArea.clientWidth - this.offsetWidth;
-        this.xConstraint = playableArea.clientHeight - this.offsetHeight;
+        this.yConstraint = playableArea.clientWidth - this.element.offsetWidth;
+        this.xConstraint = playableArea.clientHeight - this.element.offsetHeight;
+        console.log(this.yConstraint, this.xConstraint);
         if(this.x > this.xConstraint) {
             this.x = this.xConstraint
         }
@@ -66,10 +68,10 @@ class player {
      
 }
 //initialize cannons
-// spawnCannons('cannonSidebarLeft', cannonAmount, false);
-// spawnCannons('cannonSidebarRight', cannonAmount, true);
-// spawnCannons('cannonSidebarTop', cannonAmount, true);
-// spawnCannons('cannonSidebarBottom', cannonAmount, true);
+spawnCannons(cannonAmount, cannonSize, 'cannonSidebarLeft');
+spawnCannons(cannonAmount, cannonSize, 'cannonSidebarRight');
+spawnCannons(cannonAmount, cannonSize, 'cannonSidebarTop');
+spawnCannons(cannonAmount, cannonSize, 'cannonSidebarBottom');
 
 
 const myPlayer = new player(xStartingPosition, yStartingPosition, startingSpeed);
