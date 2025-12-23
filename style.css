@@ -6,6 +6,7 @@ body{
     justify-content: center; /* Centers vertically */
     min-height: 100vh;      /* Makes the body take up the full screen height */
     overflow: hidden;       /* Prevents accidental scrollbars */
+    background-color: rgb(41, 41, 41);
 }
 
 /*cannon area*/
@@ -17,7 +18,7 @@ body{
 
     /* border stuff*/
     border-radius: 25px;
-    padding: 25px;
+    padding: 50px;
 }
 
 /* cannon sidebar stuff */
@@ -59,7 +60,7 @@ body{
     align-content: center;
 
     /* border stuff*/
-    border: 5px solid rgb(152, 152, 152);
+    border: 5px solid rgb(41, 41, 41);
     border-radius: 25px;
     overflow: hidden;
 }
@@ -71,10 +72,10 @@ body{
     height: 50px;
     width: 50px;
 
-    background-image: url("/assets/Th20Marisa.png");
     background-size: contain;
     background-repeat: no-repeat;
-
+    background-color: black;
+    border-radius: 25px;
     position: absolute;
 
 }
@@ -101,11 +102,13 @@ body{
 }
 
 .cannon {
-    
-    height: 50px;
-    width: 50px;
-    background-image: url(/assets/image-removebg-preview.png);
-    background-size: cover;
+
+    height: 75px;
+    width: 75px;
+    background-image: url(/assets/cannon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 
     position: relative;
 
@@ -113,10 +116,12 @@ body{
 
 .cannonFlipped {
     transform: scalex(-1);
-    height: 50px;
-    width: 50px;
-    background-image: url(/assets/image-removebg-preview.png);
-    background-size: cover;
+    height: 75px;
+    width: 75px;
+    background-image: url(/assets/cannon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 
     position: relative;
 
