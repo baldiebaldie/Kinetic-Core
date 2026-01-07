@@ -1,9 +1,24 @@
+/**
+ * Kinetic Core
+ * Author: Bryan Baldie.
+ * Version: 1.0.0
+ */
+
 //main.js
+
 import { keyPressed } from './input.js';
 import { spawnCannons, randomPattern, allCannons} from './cannonLogic.js';
 import { initializeControlPanel } from './controlPanel.js';
 import { player } from './player.js';
 
+//signiture
+
+console.log(
+  "%c Kinetic Core %c Built by Bryan Baldie %c",
+  "background: #222; color: #bada55; padding: 5px; font-weight: bold;",
+  "background: #333; color: #fff; padding: 5px;",
+  "background: transparent;"
+);
 
 const playableArea = document.querySelector('.playableArea');
 const heartsContainer = document.getElementById('heartsContainer');
@@ -142,7 +157,7 @@ spawnCannons(gameConfig.cannonCount, cannonSize, 'cannonSidebarRight');
 spawnCannons(gameConfig.cannonCount, cannonSize, 'cannonSidebarTop');
 spawnCannons(gameConfig.cannonCount, cannonSize, 'cannonSidebarBottom');
 
-console.log(allCannons);
+// console.log(allCannons);
 
 //initialize control panel
 const controlPanel = initializeControlPanel(gameConfig);
@@ -268,7 +283,7 @@ function resetGame() {
 
 function handleLives() {
     lives -= 1;
-    console.log(`Lives remaining: ${lives}`);
+    // console.log(`Lives remaining: ${lives}`);
     updateLivesDisplay();
 }
 
