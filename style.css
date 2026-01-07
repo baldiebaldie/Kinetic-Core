@@ -251,6 +251,17 @@ body{
     display: none;
 }
 
+/* Score Display */
+#scoreDisplay {
+    color: rgb(100, 200, 255);
+    font-size: 28px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+}
+
 /* Game Over Display */
 #gameOverDisplay {
     position: fixed;
