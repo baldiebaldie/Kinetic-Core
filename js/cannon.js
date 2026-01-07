@@ -29,6 +29,9 @@ export class Cannon {
         var spawnPositionX;
         var spawnPositionY;
 
+        // Bullet size from CSS (30px)
+        const bulletSize = 30;
+        const bulletHalfSize = bulletSize / 2;
 
         //handle inital direction
         switch(this.side) {
@@ -36,22 +39,22 @@ export class Cannon {
                 xVelocity = 1 * bulletSpeed;
                 yVelocity = 0;
                 spawnPositionX = cannonPosition.right - areaRect.left;
-                spawnPositionY = cannonPosition.top - areaRect.top + (cannonPosition.height / 2);
+                spawnPositionY = cannonPosition.top - areaRect.top + (cannonPosition.height / 2) - bulletHalfSize;
                 // console.log(spawnPositionX, spawnPositionY, this.side);
                 // bulletColor = 'red';
                 break;
             case ('cannonSidebarRight'):
                 xVelocity = -1 * bulletSpeed;
                 yVelocity = 0;
-                spawnPositionX = cannonPosition.left - areaRect.left;
-                spawnPositionY = cannonPosition.top - areaRect.top + (cannonPosition.height / 2);
+                spawnPositionX = cannonPosition.left - areaRect.left - bulletSize;
+                spawnPositionY = cannonPosition.top - areaRect.top + (cannonPosition.height / 2) - bulletHalfSize;
                 // console.log(spawnPositionX, spawnPositionY, this.side);
                 // bulletColor = 'blue';
                 break;
             case ('cannonSidebarTop'):
                 xVelocity = 0;
                 yVelocity = 1 * bulletSpeed;
-                spawnPositionX = cannonPosition.left - areaRect.left + (cannonPosition.width / 2);
+                spawnPositionX = cannonPosition.left - areaRect.left + (cannonPosition.width / 2) - bulletHalfSize;
                 spawnPositionY = cannonPosition.bottom - areaRect.top;
                 // console.log(spawnPositionX, spawnPositionY, this.side);
                 // bulletColor = 'green';
@@ -59,8 +62,8 @@ export class Cannon {
             case ('cannonSidebarBottom'):
                 xVelocity = 0;
                 yVelocity = -1 * bulletSpeed;
-                spawnPositionX = cannonPosition.left - areaRect.left + (cannonPosition.width / 2);
-                spawnPositionY = cannonPosition.top - areaRect.top;
+                spawnPositionX = cannonPosition.left - areaRect.left + (cannonPosition.width / 2) - bulletHalfSize;
+                spawnPositionY = cannonPosition.top - areaRect.top - bulletSize;
                 // console.log(spawnPositionX, spawnPositionY, this.side);
                 // bulletColor = 'purple';
                 break;
