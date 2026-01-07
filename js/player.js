@@ -23,6 +23,11 @@ export class Player {
         //rotation properties
         this.rotation = 0; // current rotation in degrees
 
+        //trail properties
+        this.trailParticles = [];
+        this.trailSpawnRate = 2; // spawn a particle every N frames
+        this.frameCounter = 0;
+        this.isFocusMode = false;
 
         this.reset();
         this.create();
@@ -63,8 +68,9 @@ export class Player {
     //handle the players inputs
     handleInput(key) {
 
-        //handle half speed
-        const currentSpeed = (key['Shift'] || key['shift']) ? this.speed / 2 : this.speed;
+        //handle half speed and track focus mode
+        this.isFocusMode = (key['Shift'] || key['shift']);
+        const currentSpeed = this.isFocusMode ? this.speed / 2 : this.speed;
         // console.log(currentSpeed);
 
         //track movement direction
@@ -99,10 +105,58 @@ export class Player {
         }
     }
      
+    spawnTrailParticle() {
+        const particle = document.createElement('div');
+        particle.classList.add('trailParticle');
+        particle.style.left = `${this.x + this.element.offsetWidth / 2}px`;
+        particle.style.top = `${this.y + this.element.offsetHeight / 2}px`;
+        playableArea.appendChild(particle);
+
+        const particleData = {
+            element: particle,
+            lifetime: 0,
+            maxLifetime: 30 // frames
+        };
+
+        this.trailParticles.push(particleData);
+    }
+
+    updateTrail() {
+        //update existing particles
+        for (let i = this.trailParticles.length - 1; i >= 0; i--) {
+            const particle = this.trailParticles[i];
+            particle.lifetime++;
+
+            //calculate fade based on lifetime
+            const opacity = 1 - (particle.lifetime / particle.maxLifetime);
+            particle.element.style.opacity = opacity;
+
+            //remove particle if expired
+            if (particle.lifetime >= particle.maxLifetime) {
+                particle.element.remove();
+                this.trailParticles.splice(i, 1);
+            }
+        }
+
+        //spawn new particles when not in focus mode
+        if (!this.isFocusMode) {
+            this.frameCounter++;
+            if (this.frameCounter >= this.trailSpawnRate) {
+                this.spawnTrailParticle();
+                this.frameCounter = 0;
+            }
+        } else {
+            this.frameCounter = 0;
+        }
+    }
+
     draw () {
         this.element.style.top = `${this.y}px`;
         this.element.style.left = `${this.x}px`;
         this.element.style.transform = `rotate(${this.rotation}deg)`;
+
+        //update trail particles
+        this.updateTrail();
 
         //handle hit visual feedback
         if (this.isHit) {
