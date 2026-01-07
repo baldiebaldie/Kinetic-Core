@@ -24,11 +24,11 @@
           id="playerSpeedSlider"
           min="1"
           max="10"
-          value="3"
+          value="1.5"
           step="0.5"
           class="slider"
         />
-        <span id="playerSpeedValue" class="sliderValue">3.0</span>
+        <span id="playerSpeedValue" class="sliderValue">1.5</span>
       </div>
 
       <div class="sliderContainer">
@@ -80,11 +80,11 @@
           id="spawnsPerTickSlider"
           min="1"
           max="5"
-          value="1"
+          value="3"
           step="1"
           class="slider"
         />
-        <span id="spawnsPerTickValue" class="sliderValue">1</span>
+        <span id="spawnsPerTickValue" class="sliderValue">3</span>
       </div>
     </div>
 
@@ -102,6 +102,11 @@
 
     <!-- Score Display -->
     <div id="scoreDisplay">Score: 0</div>
+
+    <!-- Start Screen Display -->
+    <div id="startScreenDisplay" style="display: flex">
+      <span id="startScreenText">W A S D to move<br>SHIFT for focus mode<br><span class="surviveText">SURVIVE</span></span>
+    </div>
 
     <!-- Game Over Display -->
     <div id="gameOverDisplay" style="display: none">

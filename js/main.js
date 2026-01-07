@@ -24,6 +24,7 @@ console.log(
 const playableArea = document.querySelector('.playableArea');
 const heartsContainer = document.getElementById('heartsContainer');
 const gameOverDisplay = document.getElementById('gameOverDisplay');
+const startScreenDisplay = document.getElementById('startScreenDisplay');
 const backgroundMusic = document.getElementById('backgroundMusic');
 
 //localStorage functions for high score persistence
@@ -53,15 +54,16 @@ let activeBullets = [];
 let maxLives = 3; //adjust this value to change starting lives
 let lives = maxLives;
 let gameOver = false;
+let gameStarted = false;
 let score = 0;
 let highScore = loadHighScore();
 
 const gameConfig = {
-    playerSpeed: 3,
+    playerSpeed: 1.5,
     bulletSpeed: 1,
     fireRate: 100,
     cannonCount: 9,
-    spawnsPerTick: 1,
+    spawnsPerTick: 3,
     onCannonCountChange: null
 };
 
@@ -202,9 +204,6 @@ if (backgroundMusic) {
         // Music will start on first user interaction
         const randomStart = Math.random() * backgroundMusic.duration;
         backgroundMusic.currentTime = randomStart;
-        document.addEventListener('keydown', () => {
-            backgroundMusic.play();
-        }, { once: true });
     });
 }
 
@@ -223,19 +222,28 @@ if (clearHighScoreButton) {
 //function which updates each frame
 function update() {
     myPlayer.speed = gameConfig.playerSpeed;
-    myPlayer.handleInput(keyPressed);
-    myPlayer.calculateBounds();
-    if(!gameOver) {
+
+    if(gameStarted) {
+        myPlayer.handleInput(keyPressed);
+        myPlayer.calculateBounds();
+    }
+
+    if(!gameOver && gameStarted) {
         myPlayer.draw();
         randomPattern(frameCount, activeBullets, playableArea, myPlayer, gameConfig.fireRate, gameConfig.bulletSpeed, gameConfig.spawnsPerTick);
 
         //add points based on difficulty
         score += calculatePointsThisFrame();
         updateScoreDisplay();
+    } else if (!gameStarted) {
+        //draw player in center before game starts
+        myPlayer.draw();
     }
 
     //random cannon shooting pattern
-    frameCount++;
+    if(gameStarted) {
+        frameCount++;
+    }
 
     //starts the loop
     requestAnimationFrame(update);
@@ -258,6 +266,7 @@ function clearScreen() {
 function resetGame() {
     //reset game state
     gameOver = false;
+    gameStarted = false;
     lives = maxLives;
     score = 0;
     frameCount = 0;
@@ -273,8 +282,9 @@ function resetGame() {
     updateScoreDisplay();
     updateHighScoreDisplay();
 
-    //hide game over display
+    //hide game over display and show start screen
     gameOverDisplay.style.display = 'none';
+    startScreenDisplay.style.display = 'flex';
 }
 
 function handleLives() {
@@ -282,6 +292,18 @@ function handleLives() {
     // console.log(`Lives remaining: ${lives}`);
     updateLivesDisplay();
 }
+
+//start game on first keypress
+document.addEventListener('keydown', () => {
+    if (!gameStarted && !gameOver) {
+        gameStarted = true;
+        startScreenDisplay.style.display = 'none';
+        backgroundMusic.play();
+    }
+}, { once: false });
+
+//show start screen initially
+startScreenDisplay.style.display = 'flex';
 
 update();
 

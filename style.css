@@ -8,8 +8,8 @@ body{
     overflow: hidden;       /* Prevents accidental scrollbars */
     background-color: rgb(41, 41, 41);
 
-    background-size: cover;      
-    background-position: center; 
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
 
     background-image: url(./assets/backgroundGrid.jpg);
@@ -153,10 +153,10 @@ body{
 }
 
 .cannonFlipped {
-    transform: scalex(-1);
+    transform: scaleX(-1);
     height: 75px;
     width: 75px;
-    background-image: url(./assets/NeonTube3.png);
+    background-image: url(./assets/neonTube3.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -383,6 +383,43 @@ body{
     letter-spacing: 1px;
     text-shadow: 0 0 20px rgba(2, 254, 228, 0.8), 0 0 40px rgba(2, 254, 228, 0.4);
     margin-bottom: 20px;
+}
+
+/* Start Screen Display */
+#startScreenDisplay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 40px 80px;
+    border-radius: 20px;
+    border: 4px solid #FF6B35;
+    box-shadow: 0 0 40px rgba(255, 107, 53, 0.8), 0 0 80px rgba(255, 107, 53, 0.4);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#startScreenText {
+    color: #FF6B35;
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    line-height: 1.8;
+    text-shadow: 0 0 20px rgba(255, 107, 53, 1), 0 0 40px rgba(255, 107, 53, 0.6), 0 0 60px rgba(255, 107, 53, 0.4);
+}
+
+.surviveText {
+    color: #02FEE4;
+    font-size: 48px;
+    display: block;
+    margin-top: 10px;
+    text-shadow: 0 0 20px rgba(2, 254, 228, 1), 0 0 40px rgba(2, 254, 228, 0.6), 0 0 60px rgba(2, 254, 228, 0.4);
 }
 
 /* Game Over Display */
