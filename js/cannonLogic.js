@@ -71,8 +71,22 @@ export function randomPattern(frameCount, activeBullets, playableArea, myPlayer,
     //bullet logic (every x frames)
     if(frameCount % fireRate == 0) {
         //spawn multiple bullets based on spawnsPerTick
+        //track which cannons have fired this tick to prevent overlapping bullets
+        let firedCannonIndices = new Set();
+
         for(let i = 0; i < spawnsPerTick; i++) {
-            let randomCannonIndex = Math.floor(Math.random() * allCannons.length)
+            //ensure we don't select the same cannon twice in one tick
+            let randomCannonIndex;
+            let attempts = 0;
+            do {
+                randomCannonIndex = Math.floor(Math.random() * allCannons.length);
+                attempts++;
+                //if we've tried too many times, break to avoid infinite loop
+                if(attempts > allCannons.length * 2) break;
+            } while(firedCannonIndices.has(randomCannonIndex));
+
+            //mark this cannon as fired
+            firedCannonIndices.add(randomCannonIndex);
             let randomCannon = allCannons[randomCannonIndex];
 
             randomCannon.fire(playableArea, activeBullets, bulletSpeed);
